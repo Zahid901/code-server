@@ -1,0 +1,50 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class SeleniumPlaygroundDemo {
+    public static void main(String[] args) {
+        // Set the path of the ChromeDriver executable
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+
+        // Launch the Chrome browser
+        WebDriver driver = new ChromeDriver();
+
+        // Navigate to LambdaTest Selenium Playground
+        driver.get("https://www.lambdatest.com/selenium-playground");
+
+        // Click "Simple Form Demo" under Input Forms
+        driver.findElement(By.linkText("Simple Form Demo")).click();
+
+        // Validate that the URL contains "simple-form-demo"
+        String currentUrl = driver.getCurrentUrl();
+        if (currentUrl.contains("simple-form-demo")) {
+            System.out.println("URL contains 'simple-form-demo'");
+        } else {
+            System.out.println("URL does not contain 'simple-form-demo'");
+        }
+
+        // Create a variable for a string value "Welcome to LambdaTest"
+        String message = "Welcome to LambdaTest";
+
+        // Enter the message in the "Enter Message" text box
+        WebElement messageBox = driver.findElement(By.xpath("//input[@id='user-message']"));
+        messageBox.sendKeys(message);
+
+        // Click "Get Checked Value"
+        driver.findElement(By.xpath("//button[text()='Get Your Answer']")).click();
+
+        // Validate whether the same text message is displayed in the right-hand panel under the "Your Message:" section.
+        WebElement yourMessage = driver.findElement(By.xpath("//span[@id='display']"));
+        String displayedMessage = yourMessage.getText();
+        if (displayedMessage.equals(message)) {
+            System.out.println("Displayed message is correct: " + displayedMessage);
+        } else {
+            System.out.println("Displayed message is incorrect: " + displayedMessage);
+        }
+
+        // Close the browser
+        driver.quit();
+    }
+}
